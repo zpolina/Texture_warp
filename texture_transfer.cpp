@@ -105,7 +105,7 @@ bool compareDistances(array<T,4> d1, array<T, 4> d2)
 int main( int argc, char** argv ) {
 
   // Check the number of parameters
-   if (argc < 3) {
+   if (argc < 4) {
        // Tell the user how to run the program
        std::cout << "Please enter new image size, i.e two number hight and width and enter the name of the file of the folder" << std::endl;
        return 1;
@@ -115,6 +115,7 @@ int main( int argc, char** argv ) {
   const char* directoryName = argv[1];
   int height = atoi(argv[2]);
   int width = atoi(argv[3]);
+  int datset_size = atoi(argv[4]);
   //parsing the directory
   vector<string> directories_num;
   DIR *directory = opendir( directoryName );
@@ -157,15 +158,15 @@ int main( int argc, char** argv ) {
   //vector <string> final_names = {"p-1.jpg", "p-3.jpg", "1-p.jpg", "1-3.jpg", "3-p.jpg", "3-1.jpg"};
   //for(int i =0; i<5; i++){
   //TODO: change the maximum index
-    for (int names_idx =1; names_idx<376; names_idx++){
+    for (int names_idx =1; names_idx<datset_size+1; names_idx++){
       orig_im_1  = cv::imread(static_cast<string>(directoryName) + "source/frame"  + std::to_string(names_idx) + ".jpg", CV_LOAD_IMAGE_COLOR);
-      orig_IUV_1 = cv::imread(static_cast<string>(directoryName) + "source_dp/frame"+ std::to_string(names_idx)+ "_IUV.png", CV_LOAD_IMAGE_COLOR);
-      IUV_1 = cv::imread(static_cast<string>(directoryName) + "target_dp/frame"+ std::to_string(names_idx)+ "_IUV.png", CV_LOAD_IMAGE_COLOR);
+      orig_IUV_1 = cv::imread(static_cast<string>(directoryName) + "dp_source/frame"+ std::to_string(names_idx)+ ".png", CV_LOAD_IMAGE_COLOR);
+      IUV_1 = cv::imread(static_cast<string>(directoryName) + "dp_target/frame"+ std::to_string(names_idx)+ ".png", CV_LOAD_IMAGE_COLOR);
       ///cv::namedWindow( "Display window", cv::WINDOW_AUTOSIZE );
       //cv::imshow( "Display window", rrrr);
       //
       //cv::waitKey(0);
-      cout<<static_cast<string>(directoryName) + "source_dp/frame"+ std::to_string(names_idx)+ "_IUV.png"<<endl;
+      cout<<static_cast<string>(directoryName) + "dp_source/frame"+ std::to_string(names_idx)+ ".png"<<endl;
       if(! (orig_im_1.data && orig_IUV_1.data && IUV_1.data)) {
           std::cout <<  "Could not open or find the image" << std::endl ;
           return -1;
